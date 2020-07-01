@@ -7,10 +7,6 @@ public class OperationModel {
     public OperationModel() {
     }
 
-    public OperationModel(String operation) {
-        this.operation = operation;
-    }
-
     public OperationModel(float firstNumber, float  secondNumber) {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
