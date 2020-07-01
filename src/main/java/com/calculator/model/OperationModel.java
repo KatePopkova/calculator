@@ -1,7 +1,6 @@
 package com.calculator.model;
 
 public class OperationModel {
-    private String operation;
     private float firstNumber;
     private float  secondNumber;
 
