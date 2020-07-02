@@ -1,7 +1,9 @@
 package com.calculator.repo;
 
-import com.calculator.entity.DataBaseRequest;
+import com.calculator.entity.Operations;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface DataBaseRequestRepo extends CrudRepository<DataBaseRequest, Long> {
+@Repository
+public interface DataBaseRequestRepo extends CrudRepository<Operations, Long> {
 }
