@@ -86,7 +86,6 @@ public class CalculatorController {
     public String getDbRequestCount(Model model) {
         Iterable<Operations> operationRequests = operationsRepo.findAll();
         model.addAttribute(RESULT, operationRequests.spliterator().estimateSize());
-        ;
         return REQUESTS;
     }
 }
