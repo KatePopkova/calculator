@@ -22,7 +22,8 @@ public class CalculatorController {
     private static final String GET_SUBTRACTION_PARAM = "getSubtraction";
     private static final String GET_MULTIPLICATION_PARAM = "getMultiplication";
     private static final String GET_QUOTIENT_PARAM = "getQuotient";
-    private static final String GET_DB_REQUESTS = "getCountDbRequests";
+    private static final String SLASH = "/";
+    private static final String REQUESTS = "requests";
     private static final String SUM = "sum";
     private static final String SUBTRACTION = "subtraction";
     private static final String MULTIPLICATION = "multiplication";
@@ -79,17 +80,10 @@ public class CalculatorController {
         dataBaseRequestRepo.save(dataBaseRequest);
     }
 
-    /*@PostMapping(params = GET_DB_REQUESTS)
-    public String getCountDbRequests() {
-        int count = 0;
+    @GetMapping(value = SLASH + REQUESTS)
+    public String getDbRequestCount(Model model) {
         Iterable<Operations> dataBaseRequests = dataBaseRequestRepo.findAll();
-        Iterator<Operations> iterator = dataBaseRequests.iterator();
-        while (iterator.hasNext()) {
-            iterator.hasNext();
-            ++count;
-        }
-        System.out.println(count);
-
-        return CALCULATOR;
-    }*/
+        model.addAttribute(RESULT, dataBaseRequests.spliterator().estimateSize());;
+        return REQUESTS;
+    }
 }
