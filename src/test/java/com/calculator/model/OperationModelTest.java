@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class OperationModelTest {
+    final static OperationModel pojo = new OperationModel();
     private final static float FIRST_NUMBER = 5.2f;
     private final static float SECOND_NUMBER = 2.4f;
     private final static float DELTA = 0.0f;
@@ -19,37 +20,37 @@ class OperationModelTest {
 
     @Test
     void getFirstNumber() throws NoSuchFieldException, IllegalAccessException {
-        final OperationModel pojo = new OperationModel();
         final Field field = pojo.getClass().getDeclaredField(FIRST_NUMBER_FIELD_NAME);
         field.setAccessible(true);
         field.set(pojo, FIRST_NUMBER);
-        Assert.assertEquals("Field has not been retrieved properly", FIRST_NUMBER, pojo.getFirstNumber(), DELTA);
+        Assert.assertEquals("Field has not been retrieved properly",
+                FIRST_NUMBER, pojo.getFirstNumber(), DELTA);
     }
 
     @Test
     void setFirstNumber() throws NoSuchFieldException, IllegalAccessException {
-        final OperationModel pojo = new OperationModel();
         pojo.setFirstNumber(FIRST_NUMBER);
         final Field field = pojo.getClass().getDeclaredField(FIRST_NUMBER_FIELD_NAME);
         field.setAccessible(true);
-        Assert.assertEquals("Field value has not been matched", FIRST_NUMBER, field.get(pojo));
+        Assert.assertEquals("Field value has not been matched",
+                FIRST_NUMBER, field.get(pojo));
     }
 
     @Test
     void getSecondNumber() throws NoSuchFieldException, IllegalAccessException {
-        final OperationModel pojo = new OperationModel();
         final Field field = pojo.getClass().getDeclaredField(SECOND_NUMBER_FIELD_NAME);
         field.setAccessible(true);
         field.set(pojo, SECOND_NUMBER);
-        Assert.assertEquals("Field has not been retrieved properly", SECOND_NUMBER, pojo.getSecondNumber(), DELTA);
+        Assert.assertEquals("Field has not been retrieved properly",
+                SECOND_NUMBER, pojo.getSecondNumber(), DELTA);
     }
 
     @Test
     void setSecondNumber() throws NoSuchFieldException, IllegalAccessException {
-        final OperationModel pojo = new OperationModel();
         pojo.setSecondNumber(SECOND_NUMBER);
         final Field field = pojo.getClass().getDeclaredField(SECOND_NUMBER_FIELD_NAME);
         field.setAccessible(true);
-        Assert.assertEquals("Field value has not been matched", SECOND_NUMBER, field.get(pojo));
+        Assert.assertEquals("Field value has not been matched",
+                SECOND_NUMBER, field.get(pojo));
     }
 }
