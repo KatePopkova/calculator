@@ -23,7 +23,7 @@ class OperationModelTest {
         final Field field = pojo.getClass().getDeclaredField(FIRST_NUMBER_FIELD_NAME);
         field.setAccessible(true);
         field.set(pojo, FIRST_NUMBER);
-        Assert.assertEquals("Field has not been retrieved properly",
+        Assert.assertEquals("\"firstNumber\" field has not been retrieved properly",
                 FIRST_NUMBER, pojo.getFirstNumber(), DELTA);
     }
 
@@ -32,7 +32,7 @@ class OperationModelTest {
         pojo.setFirstNumber(FIRST_NUMBER);
         final Field field = pojo.getClass().getDeclaredField(FIRST_NUMBER_FIELD_NAME);
         field.setAccessible(true);
-        Assert.assertEquals("Field value has not been matched",
+        Assert.assertEquals("\"firstNumber\" field value has not been matched",
                 FIRST_NUMBER, field.get(pojo));
     }
 
@@ -41,7 +41,7 @@ class OperationModelTest {
         final Field field = pojo.getClass().getDeclaredField(SECOND_NUMBER_FIELD_NAME);
         field.setAccessible(true);
         field.set(pojo, SECOND_NUMBER);
-        Assert.assertEquals("Field has not been retrieved properly",
+        Assert.assertEquals("\"secondNumber\" field has not been retrieved properly",
                 SECOND_NUMBER, pojo.getSecondNumber(), DELTA);
     }
 
@@ -50,7 +50,7 @@ class OperationModelTest {
         pojo.setSecondNumber(SECOND_NUMBER);
         final Field field = pojo.getClass().getDeclaredField(SECOND_NUMBER_FIELD_NAME);
         field.setAccessible(true);
-        Assert.assertEquals("Field value has not been matched",
+        Assert.assertEquals("\"secondNumber\" field value has not been matched",
                 SECOND_NUMBER, field.get(pojo));
     }
 }

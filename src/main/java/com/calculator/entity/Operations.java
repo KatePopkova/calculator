@@ -48,14 +48,6 @@ public class Operations {
         this.firstNumber = firstNumber;
     }
 
-    public float getResult() {
-        return result;
-    }
-
-    public void setResult(float result) {
-        this.result = result;
-    }
-
     public String getOperation() {
         return operation;
     }
@@ -70,5 +62,13 @@ public class Operations {
 
     public void setSecondNumber(float secondNumber) {
         this.secondNumber = secondNumber;
+    }
+
+    public float getResult() {
+        return result;
+    }
+
+    public void setResult(float result) {
+        this.result = result;
     }
 }
