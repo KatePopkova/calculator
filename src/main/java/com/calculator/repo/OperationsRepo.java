@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DataBaseRequestRepo extends CrudRepository<Operations, Long> {
+public interface OperationsRepo extends CrudRepository<Operations, Long> {
 }

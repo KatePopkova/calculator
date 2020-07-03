@@ -1,8 +1,8 @@
-package com.calculator.controllers;
+package com.calculator.controller;
 
 import com.calculator.entity.Operations;
 import com.calculator.model.OperationModel;
-import com.calculator.repo.DataBaseRequestRepo;
+import com.calculator.repo.OperationsRepo;
 import com.calculator.service.SimpleCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,24 +35,24 @@ public class CalculatorController {
     private SimpleCalculator simpleCalculator;
 
     @Autowired
-    private DataBaseRequestRepo dataBaseRequestRepo;
+    private OperationsRepo operationsRepo;
 
     @GetMapping
-    public String getCalculatorPage(Model model){
+    public String getCalculatorPage(Model model) {
         model.addAttribute(OPERATION_MODEL, operationModel);
         return CALCULATOR;
     }
 
     @PostMapping(params = GET_SUM_PARAM)
-    public String getSum(@ModelAttribute(OPERATION_MODEL)  OperationModel operationModel, Model model){
+    public String getSum(@ModelAttribute(OPERATION_MODEL) OperationModel operationModel, Model model) {
         float result = simpleCalculator.getSum(operationModel);
-        addRequestToDataBase(operationModel.getFirstNumber(),SUM, operationModel.getSecondNumber(), result);
+        addRequestToDataBase(operationModel.getFirstNumber(), SUM, operationModel.getSecondNumber(), result);
         model.addAttribute(RESULT, result);
         return CALCULATOR;
     }
 
     @PostMapping(params = GET_SUBTRACTION_PARAM)
-    public String getSubtraction(@ModelAttribute(OPERATION_MODEL)  OperationModel operationModel, Model model){
+    public String getSubtraction(@ModelAttribute(OPERATION_MODEL) OperationModel operationModel, Model model) {
         float result = simpleCalculator.getSubtraction(operationModel);
         addRequestToDataBase(operationModel.getFirstNumber(), SUBTRACTION, operationModel.getSecondNumber(), result);
         model.addAttribute(RESULT, result);
@@ -60,30 +60,31 @@ public class CalculatorController {
     }
 
     @PostMapping(params = GET_MULTIPLICATION_PARAM)
-    public String getMultiplication(@ModelAttribute(OPERATION_MODEL)  OperationModel operationModel, Model model){
+    public String getMultiplication(@ModelAttribute(OPERATION_MODEL) OperationModel operationModel, Model model) {
         float result = simpleCalculator.getMultiplication(operationModel);
-        addRequestToDataBase(operationModel.getFirstNumber(),MULTIPLICATION, operationModel.getSecondNumber(), result);
+        addRequestToDataBase(operationModel.getFirstNumber(), MULTIPLICATION, operationModel.getSecondNumber(), result);
         model.addAttribute(RESULT, result);
         return CALCULATOR;
     }
 
     @PostMapping(params = GET_QUOTIENT_PARAM)
-    public String getQuotient(@ModelAttribute(OPERATION_MODEL)  OperationModel operationModel, Model model){
+    public String getQuotient(@ModelAttribute(OPERATION_MODEL) OperationModel operationModel, Model model) {
         float result = simpleCalculator.getQuotient(operationModel);
-        addRequestToDataBase(operationModel.getFirstNumber(),DIVISION, operationModel.getSecondNumber(), result);
+        addRequestToDataBase(operationModel.getFirstNumber(), DIVISION, operationModel.getSecondNumber(), result);
         model.addAttribute(RESULT, result);
         return CALCULATOR;
     }
 
     private void addRequestToDataBase(float firstNumber, String operation, float secondNumber, float result) {
-        Operations dataBaseRequest = new Operations(firstNumber, operation, secondNumber, result);
-        dataBaseRequestRepo.save(dataBaseRequest);
+        Operations operationRequest = new Operations(firstNumber, operation, secondNumber, result);
+        operationsRepo.save(operationRequest);
     }
 
     @GetMapping(value = SLASH + REQUESTS)
     public String getDbRequestCount(Model model) {
-        Iterable<Operations> dataBaseRequests = dataBaseRequestRepo.findAll();
-        model.addAttribute(RESULT, dataBaseRequests.spliterator().estimateSize());;
+        Iterable<Operations> operationRequests = operationsRepo.findAll();
+        model.addAttribute(RESULT, operationRequests.spliterator().estimateSize());
+        ;
         return REQUESTS;
     }
 }
