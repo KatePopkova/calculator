@@ -7,110 +7,108 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class OperationsTest {
-    final static Operations pojo = new Operations();
-    final static String ID_FIELD_NAME = "id";
-    final static String FIRST_NUMBER_FIELD_NAME = "firstNumber";
-    final static String SECOND_NUMBER_FIELD_NAME = "secondNumber";
-    final static String OPERATION_FIELD_NAME = "operation";
-    final static String RESULT_FIELD_NAME = "result";
-    final static int ID = 1;
-    private final static float FIRST_NUMBER = 5.2f;
-    private final static float SECOND_NUMBER = 2.0f;
-    private final static float RESULT = 7.2f;
+    private final static Operations POJO = new Operations();
+    private final static String ID_FIELD_NAME = "id";
+    private final static String FIRST_NUMBER_FIELD_NAME = "firstNumber";
+    private final static String SECOND_NUMBER_FIELD_NAME = "secondNumber";
+    private final static String OPERATION_FIELD_NAME = "operation";
+    private final static String RESULT_FIELD_NAME = "result";
+    private final static Integer ID = 1;
+    private final static BigDecimal FIRST_NUMBER = new BigDecimal(5.2);
+    private final static BigDecimal SECOND_NUMBER = new BigDecimal(2.0);
+    private final static BigDecimal RESULT = new BigDecimal(7.2f);
     private final static String OPERATION = "sum";
-    final static int DELTA = 0;
 
     @Test
     void getId() throws NoSuchFieldException, IllegalAccessException {
-        final Field field = pojo.getClass().getDeclaredField(ID_FIELD_NAME);
-        field.setAccessible(true);
-        field.set(pojo, ID);
-        Assert.assertEquals("\"id\" field has not been retrieved properly",
-                ID, pojo.getId(), DELTA);
+        setFieldForGetter(ID_FIELD_NAME, ID);
+        Assert.assertEquals(ID_FIELD_NAME + " field has not been retrieved properly",
+                Optional.of(ID), Optional.of(POJO.getId()));
     }
 
     @Test
     void setId() throws NoSuchFieldException, IllegalAccessException {
-        pojo.setId(ID);
-        final Field field = pojo.getClass().getDeclaredField(ID_FIELD_NAME);
-        field.setAccessible(true);
-        Assert.assertEquals("\"id\" field value has not been matched",
-                ID, field.get(pojo));
+        POJO.setId(ID);
+        Field field = setAccessibleFieldForSetters(ID_FIELD_NAME);
+        Assert.assertEquals(ID_FIELD_NAME + " field value has not been matched",
+                ID, field.get(POJO));
     }
 
     @Test
     void getFirstNumber() throws NoSuchFieldException, IllegalAccessException {
-        final Field field = pojo.getClass().getDeclaredField(FIRST_NUMBER_FIELD_NAME);
-        field.setAccessible(true);
-        field.set(pojo, FIRST_NUMBER);
-        Assert.assertEquals("\"firstNumber\" field has not been retrieved properly",
-                FIRST_NUMBER, pojo.getFirstNumber(), DELTA);
+        setFieldForGetter(FIRST_NUMBER_FIELD_NAME, FIRST_NUMBER);
+        Assert.assertEquals(FIRST_NUMBER_FIELD_NAME + " field has not been retrieved properly",
+                FIRST_NUMBER, POJO.getFirstNumber());
     }
 
     @Test
     void setFirstNumber()  throws NoSuchFieldException, IllegalAccessException {
-        pojo.setFirstNumber(FIRST_NUMBER);
-        final Field field = pojo.getClass().getDeclaredField(FIRST_NUMBER_FIELD_NAME);
-        field.setAccessible(true);
-        Assert.assertEquals("\"firstNumber\" field value has not been matched",
-                FIRST_NUMBER, field.get(pojo));
+        POJO.setFirstNumber(FIRST_NUMBER);
+        Field field = setAccessibleFieldForSetters(FIRST_NUMBER_FIELD_NAME);
+        Assert.assertEquals(FIRST_NUMBER_FIELD_NAME + " field value has not been matched",
+                FIRST_NUMBER, field.get(POJO));
     }
 
     @Test
     void getOperation() throws NoSuchFieldException, IllegalAccessException {
-        final Field field = pojo.getClass().getDeclaredField(OPERATION_FIELD_NAME);
-        field.setAccessible(true);
-        field.set(pojo, OPERATION);
-        Assert.assertEquals("\"operation\" field has not been retrieved properly",
-                OPERATION, pojo.getOperation());
+        setFieldForGetter(OPERATION_FIELD_NAME, OPERATION);
+        Assert.assertEquals(OPERATION + " field has not been retrieved properly",
+                OPERATION, POJO.getOperation());
     }
 
     @Test
     void setOperation()  throws NoSuchFieldException, IllegalAccessException {
-        pojo.setOperation(OPERATION);
-        final Field field = pojo.getClass().getDeclaredField(OPERATION_FIELD_NAME);
-        field.setAccessible(true);
-        Assert.assertEquals("\"operation\" field value has not been matched",
-                OPERATION, field.get(pojo));
+        POJO.setOperation(OPERATION);
+        Field field = setAccessibleFieldForSetters(OPERATION_FIELD_NAME);
+        Assert.assertEquals(OPERATION + " field value has not been matched",
+                OPERATION, field.get(POJO));
     }
 
     @Test
-    void getSecondNumber()  throws NoSuchFieldException, IllegalAccessException {
-        final Field field = pojo.getClass().getDeclaredField(SECOND_NUMBER_FIELD_NAME);
-        field.setAccessible(true);
-        field.set(pojo, SECOND_NUMBER);
-        Assert.assertEquals("\"secondNumber\" field has not been retrieved properly",
-                SECOND_NUMBER, pojo.getSecondNumber(), DELTA);
+    void getSecondNumber() throws NoSuchFieldException, IllegalAccessException {
+        setFieldForGetter(SECOND_NUMBER_FIELD_NAME, SECOND_NUMBER);
+        Assert.assertEquals(SECOND_NUMBER_FIELD_NAME + " field has not been retrieved properly",
+                SECOND_NUMBER, POJO.getSecondNumber());
     }
 
     @Test
     void setSecondNumber() throws NoSuchFieldException, IllegalAccessException {
-        pojo.setSecondNumber(SECOND_NUMBER);
-        final Field field = pojo.getClass().getDeclaredField(SECOND_NUMBER_FIELD_NAME);
-        field.setAccessible(true);
-        Assert.assertEquals("\"secondNumber\" field value has not been matched",
-                SECOND_NUMBER, field.get(pojo));
+        POJO.setSecondNumber(SECOND_NUMBER);
+        Field field = setAccessibleFieldForSetters(SECOND_NUMBER_FIELD_NAME);
+        Assert.assertEquals(SECOND_NUMBER_FIELD_NAME + " field value has not been matched",
+                SECOND_NUMBER, field.get(POJO));
     }
 
     @Test
     void getResult() throws NoSuchFieldException, IllegalAccessException {
-        final Field field = pojo.getClass().getDeclaredField(RESULT_FIELD_NAME);
-        field.setAccessible(true);
-        field.set(pojo, RESULT);
-        Assert.assertEquals("\"result\" field has not been retrieved properly",
-                RESULT, pojo.getResult(), DELTA);
+        setFieldForGetter(RESULT_FIELD_NAME, RESULT);
+        Assert.assertEquals(RESULT + " field has not been retrieved properly",
+                RESULT, POJO.getResult());
     }
 
     @Test
     void setResult() throws NoSuchFieldException, IllegalAccessException {
-        pojo.setResult(RESULT);
-        final Field field = pojo.getClass().getDeclaredField(RESULT_FIELD_NAME);
+        POJO.setResult(RESULT);
+        Field field = setAccessibleFieldForSetters(RESULT_FIELD_NAME);
+        Assert.assertEquals(RESULT  + " field value has not been matched",
+                RESULT, field.get(POJO));
+    }
+
+    private void setFieldForGetter(String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
+        final Field field = POJO.getClass().getDeclaredField(fieldName);
         field.setAccessible(true);
-        Assert.assertEquals("\"result\" field value has not been matched",
-                RESULT, field.get(pojo));
+        field.set(POJO, value);
+    }
+
+    private Field setAccessibleFieldForSetters(String fieldName) throws NoSuchFieldException {
+        final Field field = POJO.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        return field;
     }
 }

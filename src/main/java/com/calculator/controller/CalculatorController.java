@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("calculator")
 public class CalculatorController {
@@ -45,7 +47,7 @@ public class CalculatorController {
 
     @PostMapping(params = GET_SUM_PARAM)
     public String getSum(@ModelAttribute(OPERATION_MODEL) OperationModel operationModel, Model model) {
-        float result = simpleCalculator.getSum(operationModel);
+        BigDecimal result = simpleCalculator.getSum(operationModel);
         addRequestToDataBase(operationModel.getFirstNumber(), SUM, operationModel.getSecondNumber(), result);
         model.addAttribute(RESULT, result);
         return CALCULATOR;
@@ -53,7 +55,7 @@ public class CalculatorController {
 
     @PostMapping(params = GET_SUBTRACTION_PARAM)
     public String getSubtraction(@ModelAttribute(OPERATION_MODEL) OperationModel operationModel, Model model) {
-        float result = simpleCalculator.getSubtraction(operationModel);
+        BigDecimal result = simpleCalculator.getSubtraction(operationModel);
         addRequestToDataBase(operationModel.getFirstNumber(), SUBTRACTION, operationModel.getSecondNumber(), result);
         model.addAttribute(RESULT, result);
         return CALCULATOR;
@@ -61,7 +63,7 @@ public class CalculatorController {
 
     @PostMapping(params = GET_MULTIPLICATION_PARAM)
     public String getMultiplication(@ModelAttribute(OPERATION_MODEL) OperationModel operationModel, Model model) {
-        float result = simpleCalculator.getMultiplication(operationModel);
+        BigDecimal result = simpleCalculator.getMultiplication(operationModel);
         addRequestToDataBase(operationModel.getFirstNumber(), MULTIPLICATION, operationModel.getSecondNumber(), result);
         model.addAttribute(RESULT, result);
         return CALCULATOR;
@@ -69,13 +71,13 @@ public class CalculatorController {
 
     @PostMapping(params = GET_QUOTIENT_PARAM)
     public String getQuotient(@ModelAttribute(OPERATION_MODEL) OperationModel operationModel, Model model) {
-        float result = simpleCalculator.getQuotient(operationModel);
+        BigDecimal result = simpleCalculator.getQuotient(operationModel);
         addRequestToDataBase(operationModel.getFirstNumber(), DIVISION, operationModel.getSecondNumber(), result);
         model.addAttribute(RESULT, result);
         return CALCULATOR;
     }
 
-    private void addRequestToDataBase(float firstNumber, String operation, float secondNumber, float result) {
+    private void addRequestToDataBase(BigDecimal firstNumber, String operation, BigDecimal secondNumber, BigDecimal result) {
         Operations operationRequest = new Operations(firstNumber, operation, secondNumber, result);
         operationsRepo.save(operationRequest);
     }

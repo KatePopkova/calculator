@@ -1,30 +1,32 @@
 package com.calculator.model;
 
+import java.math.BigDecimal;
+
 public class OperationModel {
-    private float firstNumber;
-    private float  secondNumber;
+    private BigDecimal firstNumber;
+    private BigDecimal secondNumber;
 
     public OperationModel() {
     }
 
-    public OperationModel(float firstNumber, float  secondNumber) {
+    public OperationModel(BigDecimal firstNumber, BigDecimal secondNumber) {
         this.firstNumber = firstNumber;
         this.secondNumber = secondNumber;
     }
 
-    public float getFirstNumber() {
+    public BigDecimal getFirstNumber() {
         return firstNumber;
     }
 
-    public void setFirstNumber(float firstNumber) {
+    public void setFirstNumber(BigDecimal firstNumber) {
         this.firstNumber = firstNumber;
     }
 
-    public float getSecondNumber() {
+    public BigDecimal getSecondNumber() {
         return secondNumber;
     }
 
-    public void setSecondNumber(float secondNumber) {
+    public void setSecondNumber(BigDecimal secondNumber) {
         this.secondNumber = secondNumber;
     }
 }

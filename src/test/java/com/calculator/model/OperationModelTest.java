@@ -7,50 +7,56 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 class OperationModelTest {
-    final static OperationModel pojo = new OperationModel();
-    private final static float FIRST_NUMBER = 5.2f;
-    private final static float SECOND_NUMBER = 2.4f;
-    private final static float DELTA = 0.0f;
+    private final static OperationModel POJO = new OperationModel();
+    private final static BigDecimal FIRST_NUMBER = new BigDecimal(5.2);
+    private final static BigDecimal SECOND_NUMBER = new BigDecimal(2.4);
     private final static String FIRST_NUMBER_FIELD_NAME = "firstNumber";
     private final static String SECOND_NUMBER_FIELD_NAME = "secondNumber";
 
     @Test
     void getFirstNumber() throws NoSuchFieldException, IllegalAccessException {
-        final Field field = pojo.getClass().getDeclaredField(FIRST_NUMBER_FIELD_NAME);
-        field.setAccessible(true);
-        field.set(pojo, FIRST_NUMBER);
-        Assert.assertEquals("\"firstNumber\" field has not been retrieved properly",
-                FIRST_NUMBER, pojo.getFirstNumber(), DELTA);
+        setFieldForGetter(FIRST_NUMBER_FIELD_NAME, FIRST_NUMBER);
+        Assert.assertEquals(FIRST_NUMBER_FIELD_NAME + " field has not been retrieved properly",
+                FIRST_NUMBER, POJO.getFirstNumber());
     }
 
     @Test
     void setFirstNumber() throws NoSuchFieldException, IllegalAccessException {
-        pojo.setFirstNumber(FIRST_NUMBER);
-        final Field field = pojo.getClass().getDeclaredField(FIRST_NUMBER_FIELD_NAME);
-        field.setAccessible(true);
-        Assert.assertEquals("\"firstNumber\" field value has not been matched",
-                FIRST_NUMBER, field.get(pojo));
+        POJO.setFirstNumber(FIRST_NUMBER);
+        final Field field = setAccessibleFieldForSetters(FIRST_NUMBER_FIELD_NAME);
+        Assert.assertEquals(FIRST_NUMBER_FIELD_NAME + " field value has not been matched",
+                FIRST_NUMBER, field.get(POJO));
     }
 
     @Test
     void getSecondNumber() throws NoSuchFieldException, IllegalAccessException {
-        final Field field = pojo.getClass().getDeclaredField(SECOND_NUMBER_FIELD_NAME);
-        field.setAccessible(true);
-        field.set(pojo, SECOND_NUMBER);
-        Assert.assertEquals("\"secondNumber\" field has not been retrieved properly",
-                SECOND_NUMBER, pojo.getSecondNumber(), DELTA);
+        setFieldForGetter(SECOND_NUMBER_FIELD_NAME, SECOND_NUMBER);
+        Assert.assertEquals(SECOND_NUMBER_FIELD_NAME + " field has not been retrieved properly",
+                SECOND_NUMBER, POJO.getSecondNumber());
     }
 
     @Test
     void setSecondNumber() throws NoSuchFieldException, IllegalAccessException {
-        pojo.setSecondNumber(SECOND_NUMBER);
-        final Field field = pojo.getClass().getDeclaredField(SECOND_NUMBER_FIELD_NAME);
+        POJO.setSecondNumber(SECOND_NUMBER);
+        final Field field = setAccessibleFieldForSetters(SECOND_NUMBER_FIELD_NAME);
+        Assert.assertEquals(SECOND_NUMBER_FIELD_NAME + " field value has not been matched",
+                SECOND_NUMBER, field.get(POJO));
+    }
+
+    private void setFieldForGetter(String fieldName, BigDecimal value) throws NoSuchFieldException, IllegalAccessException {
+        final Field field = POJO.getClass().getDeclaredField(fieldName);
         field.setAccessible(true);
-        Assert.assertEquals("\"secondNumber\" field value has not been matched",
-                SECOND_NUMBER, field.get(pojo));
+        field.set(POJO, value);
+    }
+
+    private Field setAccessibleFieldForSetters(String fieldName) throws NoSuchFieldException {
+        final Field field = POJO.getClass().getDeclaredField(fieldName);
+        field.setAccessible(true);
+        return field;
     }
 }

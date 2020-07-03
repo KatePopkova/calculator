@@ -1,6 +1,7 @@
 package com.calculator.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "operations")
@@ -8,43 +9,43 @@ public class Operations {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private int id;
+    private Integer id;
 
     @Column(name = "first_number", nullable = false)
-    private float firstNumber;
+    private BigDecimal firstNumber;
 
     @Column(name = "operation", nullable = false)
     private String operation;
 
     @Column(name = "second_number", nullable = false)
-    private float secondNumber;
+    private BigDecimal secondNumber;
 
     @Column(name = "result", nullable = false)
-    private float result;
+    private BigDecimal result;
 
     public Operations() {
     }
 
-    public Operations(float firstNumber, String operation, float  secondNumber, float result) {
+    public Operations(BigDecimal firstNumber, String operation, BigDecimal  secondNumber, BigDecimal result) {
         this.firstNumber = firstNumber;
         this.operation = operation;
         this.secondNumber = secondNumber;
         this.result = result;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public float getFirstNumber() {
+    public BigDecimal getFirstNumber() {
         return firstNumber;
     }
 
-    public void setFirstNumber(float firstNumber) {
+    public void setFirstNumber(BigDecimal firstNumber) {
         this.firstNumber = firstNumber;
     }
 
@@ -56,19 +57,19 @@ public class Operations {
         this.operation = operation;
     }
 
-    public float getSecondNumber() {
+    public BigDecimal getSecondNumber() {
         return secondNumber;
     }
 
-    public void setSecondNumber(float secondNumber) {
+    public void setSecondNumber(BigDecimal secondNumber) {
         this.secondNumber = secondNumber;
     }
 
-    public float getResult() {
+    public BigDecimal getResult() {
         return result;
     }
 
-    public void setResult(float result) {
+    public void setResult(BigDecimal result) {
         this.result = result;
     }
 }
